@@ -49,6 +49,23 @@ public class Helper {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);
     }
 
+    public static boolean confirm (String str){
+        String message;
+        String title;
+        switch (str) {
+            case "sure":
+                message = "Are you sure to delete?";
+                title = "Confirm";
+                break;
+            default:
+                message = str;
+                title = "Info";
+                break;
+        }
+        int result = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        return result == JOptionPane.YES_OPTION;
+    }
+
     public static boolean isFieldEmpty(JTextField field) {
         return field.getText().trim().isEmpty();
     }

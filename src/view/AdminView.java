@@ -1,6 +1,7 @@
 package view;
 
 import business.BrandManager;
+import core.Helper;
 import entity.Brand;
 import entity.User;
 
@@ -61,7 +62,7 @@ public class AdminView extends Layout {
             });
         });
         this.popupMenu.add("Edit").addActionListener(e -> {
-            int selectedBrandId = Integer.parseInt(tbl_brand.getValueAt(tbl_brand.getSelectedRow(), 0).toString());
+            int selectedBrandId = this.getSelectedTableRow(tbl_brand, 0);
             Brand brand = brandManager.getById(selectedBrandId);
             BrandView brandView = new BrandView(brand);
             brandView.addWindowListener(new WindowAdapter() {
@@ -71,7 +72,20 @@ public class AdminView extends Layout {
                 }
             });
         });
-        this.popupMenu.add("Delete");
+        this.popupMenu.add("Delete").addActionListener(e -> {
+            int selectedBrandId = Integer.parseInt(tbl_brand.getValueAt(tbl_brand.getSelectedRow(), 0).toString());
+            Brand brand = brandManager.getById(selectedBrandId);
+            boolean result = Helper.confirm("sure");
+            if (result) {
+                boolean deleteResult = brandManager.delete(brand.getId());
+                if (deleteResult) {
+                    Helper.showMessage("success");
+                    loadBrandTable();
+                } else {
+                    Helper.showMessage("error");
+                }
+            }
+        });
     }
 
     public void loadBrandTable() {

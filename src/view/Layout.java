@@ -33,4 +33,8 @@ public class Layout extends JFrame {
         }
         table.setModel(model);
     }
+
+    public int getSelectedTableRow(JTable table, int index) {
+        return Integer.parseInt(table.getValueAt(table.getSelectedRow(), index).toString());
+    }
 }

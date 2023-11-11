@@ -47,4 +47,12 @@ public class BrandManager {
         }
         return this.brandDao.update(brand);
     }
+
+    public boolean delete(int id) {
+        if (this.getById(id) == null) {
+            Helper.showMessage("notFound");
+            return false;
+        }
+        return this.brandDao.delete(id);
+    }
 }
